@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RequestMapping("/contratante")
 @RestController
@@ -39,8 +42,8 @@ public class ContratanteController {
         }
     }
     
-    @GetMapping("/id")
-    public ResponseEntity<ContratanteResponseDTO> getContratanteById(@RequestParam int id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ContratanteResponseDTO> getContratanteById(@PathVariable Long id) {
         try {
             Contratante contratante = contratanteService.getContratanteById(id);
             if (contratante == null) {
@@ -78,9 +81,10 @@ public class ContratanteController {
         }
     }
     
-    @PostMapping("/update")
-    public ResponseEntity<?> updateContratante(@RequestBody ContratanteUpdateDTO updateDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateContratante(@PathVariable Long id, @RequestBody ContratanteUpdateDTO updateDTO) {
         try {
+            updateDTO.setId(id);
             Contratante contratante = ContratanteMapper.toEntity(updateDTO);
             Contratante updatedContratante = contratanteService.updateContratante(contratante);
             ContratanteResponseDTO response = ContratanteMapper.toResponseDTO(updatedContratante);
@@ -92,8 +96,8 @@ public class ContratanteController {
         }
     }
     
-    @PostMapping("/delete")
-    public ResponseEntity<?> deleteContratante(@RequestParam int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteContratante(@PathVariable Long id) {
         try {
             contratanteService.deleteContratante(id);
             return ResponseEntity.ok().body("Contratante deletado com sucesso");
