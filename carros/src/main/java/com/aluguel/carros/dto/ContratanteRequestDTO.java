@@ -1,15 +1,18 @@
-package main.java.com.aluguel.carros.dto;
+package com.aluguel.carros.dto;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
-@Getters
-@Setters
+@Getter
+@Setter
 public class ContratanteRequestDTO {
     private String nome;
     private String cpf;
     private String profissao;
     private String entidade;
 
-    // Constructors
     public ContratanteRequestDTO() {}
 
     public ContratanteRequestDTO(String nome, String cpf, String profissao, String entidade) {

@@ -1,7 +1,7 @@
-package main.java.com.aluguel.carros.dto;
+package com.aluguel.carros.dto;
 
 public class ContratanteUpdateDTO {
-    private int id;
+    private Long id;
     private String nome;
     private String cpf;
     private String profissao;
@@ -10,7 +10,7 @@ public class ContratanteUpdateDTO {
     // Constructors
     public ContratanteUpdateDTO() {}
 
-    public ContratanteUpdateDTO(int id, String nome, String cpf, String profissao, String entidade) {
+    public ContratanteUpdateDTO(Long id, String nome, String cpf, String profissao, String entidade) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -19,11 +19,11 @@ public class ContratanteUpdateDTO {
     }
 
     // Getters and Setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

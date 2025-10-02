@@ -19,7 +19,7 @@ public class ContratanteService {
         return contratanteRepository.findAll();
     }
     
-    public Contratante getContratanteById(int id) {
+    public Contratante getContratanteById(Long id) {
         return contratanteRepository.findById(id);
     }
     
@@ -28,14 +28,20 @@ public class ContratanteService {
     }
     
     public Contratante createContratante(Contratante contratante) {
-        if (contratante.getId() != 0) {
-            throw new IllegalArgumentException("ID deve ser zero para criar um novo contratante.");
+        if (contratante.getId() != null && contratante.getId() != 0) {
+            throw new IllegalArgumentException("ID deve ser nulo ou zero para criar um novo contratante.");
         }
-        return contratanteRepository.save(contratante);
+        var new_contratante = Contratante.builder()
+                .nome(contratante.getNome())
+                .cpf(contratante.getCpf())
+                .profissao(contratante.getProfissao())
+                .entidade(contratante.getEntidade())
+                .build();
+        return contratanteRepository.save(new_contratante);
     }
     
     public Contratante updateContratante(Contratante contratante) {
-        if (contratante.getId() == 0) {
+        if (contratante.getId() == null || contratante.getId() == 0) {
             throw new IllegalArgumentException("ID deve ser fornecido para atualizar um contratante.");
         }
         if (!contratanteRepository.existsById(contratante.getId())) {
@@ -45,14 +51,14 @@ public class ContratanteService {
         return contratante;
     }
     
-    public void deleteContratante(int id) {
+    public void deleteContratante(Long id) {
         if (!contratanteRepository.existsById(id)) {
             throw new IllegalArgumentException("Contratante não encontrado com ID: " + id);
         }
         contratanteRepository.deleteById(id);
     }
     
-    public boolean existsById(int id) {
+    public boolean existsById(Long id) {
         return contratanteRepository.existsById(id);
     }
 }
